@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Sidebar from "./component/Sidebar";
 import Navbar from "./component/Navbar";
@@ -8,10 +9,40 @@ import Table from "./component/Table";
 import Table1 from "./component/Table1";
 import Table2 from "./component/Table2";
 import { useDarkMode } from "./context/Darkmode";
-// import { theme } from "./utils/theme";
-import { Box, Typography, Button } from "@mui/material";
-import { DrawerHeader, Main } from "./component/styledComponent";
 import { useTheme } from "@mui/material/styles";
+import { Box, Typography, Button } from "@mui/material";
+const drawerWidth = 260;
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+  // Add additional styles for smaller screens (600px or below)
+  [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
+    marginLeft: 0,
+  },
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function PersistentDrawerLeft() {
   const [open, setOpen] = React.useState(false);
@@ -62,11 +93,11 @@ export default function PersistentDrawerLeft() {
                 fontWeight: "normal",
                 "&:hover": {
                   // Remove hover effect styles
-                  backgroundColor: "gray",
+                  // backgroundColor: "gray",
                 },
                 "&:active": {
                   // Remove onclick effect styles
-                  backgroundColor: "inherit",
+                  // backgroundColor: "inherit",
                 },
                 fontSize: "1rem",
               }}
@@ -77,7 +108,7 @@ export default function PersistentDrawerLeft() {
           <Box sx={{ paddingTop: ".5rem" }}>
             <Cards />
           </Box>
-          <Table />
+          {/* <Table /> */}
           {/* <Box
             sx={{
               padding: "0 20px 20px 20px",

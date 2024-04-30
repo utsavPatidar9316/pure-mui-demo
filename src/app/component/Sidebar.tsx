@@ -9,12 +9,11 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import { sidebarData } from "../utils/sidebarData";
 import { useDarkMode } from "../context/Darkmode";
+import { theme } from "../utils/theme";
 import FirstPageRoundedIcon from "@mui/icons-material/FirstPageRounded";
 import { useSmallScreen } from "../context/smallScreeen";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { drawerWidth } from "./styledComponent";
+
+const drawerWidth = 260;
 
 type props = {
   open: boolean;
@@ -24,8 +23,6 @@ type props = {
 const Sidebar = ({ open, handleDrawerOpen }: props) => {
   const { darkMode } = useDarkMode();
   const { smallScreen } = useSmallScreen();
-  const theme = useTheme();
-
   return (
     <Drawer
       sx={{
@@ -34,21 +31,21 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          color: theme.palette.text.primary,
-          bgcolor: theme.palette.background.default,
+          color: darkMode ? theme.darkmodeClr : theme.lightmodeClr,
+          bgcolor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
         },
       }}
       variant={smallScreen ? "temporary" : "persistent"}
       anchor="left"
       open={open}
     >
-      <Box
-        sx={{
+      <div
+        style={{
           padding: "1rem 1.5rem 1.5rem",
           display: "flex",
           marginRight: 0,
           filter: darkMode ? "brightness(0) invert(1)" : "",
-          gap: theme.spacing(10),
+          gap: 80,
         }}
       >
         <img
@@ -56,18 +53,13 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
           alt="Example SVG"
           style={{ height: "1.875rem" }}
         />
-        <Typography
-          component="span"
-          sx={{
-            cursor: "pointer",
-          }}
-        >
+        <span className="cursor-pointer">
           {smallScreen && <FirstPageRoundedIcon onClick={handleDrawerOpen} />}
-        </Typography>
-      </Box>
+        </span>
+      </div>
       <List>
         {sidebarData.map((text, index) => (
-          <ListItem key={index} disablePadding>
+          <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon
                 sx={{

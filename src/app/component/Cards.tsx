@@ -2,14 +2,39 @@ import React from "react";
 import Image from "next/image";
 import { useDarkMode } from "../context/Darkmode";
 import { theme } from "../utils/theme";
-import { Typography, Box } from "@mui/material";
-import { cardData } from "../utils/data";
+import { Box, Typography, Button } from "@mui/material";
 const Cards = () => {
   const { darkMode } = useDarkMode();
+  const data = [
+    {
+      title: "Projects",
+      number: "18",
+      completed: "2",
+      src: "projectIcon.svg",
+    },
+    {
+      title: "Active Task",
+      number: "132",
+      completed: "28",
+      src: "activeTask.svg",
+    },
+    {
+      title: "Teams",
+      number: "12",
+      completed: "1",
+      src: "termsIcon.svg",
+    },
+    {
+      title: "Productivity",
+      number: "76%",
+      completed: "5%",
+      src: "productivityIcon.svg",
+    },
+  ];
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-      {cardData.map((x, key) => (
+      {data.map((x, key) => (
         <Box
           key={key}
           sx={{
