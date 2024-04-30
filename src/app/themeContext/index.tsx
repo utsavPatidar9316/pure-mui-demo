@@ -3,6 +3,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import React from "react";
 import { DarkModeProvider } from "../context/Darkmode";
 import MuiTheme from "./Theme";
+import { SmallScreenProvider } from "../context/smallScreeen";
 
 const index = ({
   children,
@@ -11,9 +12,11 @@ const index = ({
 }>) => {
   return (
     <DarkModeProvider>
-      <AppRouterCacheProvider options={{ key: "css" }}>
-        <MuiTheme>{children}</MuiTheme>
-      </AppRouterCacheProvider>
+      <SmallScreenProvider>
+        <AppRouterCacheProvider options={{ key: "css" }}>
+          <MuiTheme>{children}</MuiTheme>
+        </AppRouterCacheProvider>
+      </SmallScreenProvider>
     </DarkModeProvider>
   );
 };
