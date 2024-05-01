@@ -8,9 +8,12 @@ import Cards from "./component/Cards";
 import Table from "./component/Table";
 import Table1 from "./component/Table1";
 import Table2 from "./component/Table2";
+import StickyHeadTable from './component/TaskTable'
 import { useDarkMode } from "./context/Darkmode";
 import { useTheme } from "@mui/material/styles";
 import { Box, Typography, Button } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import useMediaQuery from '@mui/material/useMediaQuery';
 const drawerWidth = 260;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -51,6 +54,9 @@ export default function PersistentDrawerLeft() {
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
+
+  
+
 
   return (
     <Box
@@ -108,18 +114,18 @@ export default function PersistentDrawerLeft() {
           <Box sx={{ paddingTop: ".5rem" }}>
             <Cards />
           </Box>
-          {/* <Table /> */}
-          {/* <Box
-            sx={{
-              padding: "0 20px 20px 20px",
-              display: "flex",
-              gap: "20px",
-              flexWrap: "wrap",
-            }}
-          >
-            <Table1 />
-            <Table2 />
-          </Box>  */}
+
+
+          <Grid container spacing={2} padding={2}>
+            <Grid item sm={6}>
+              <StickyHeadTable />
+
+            </Grid>
+            <Grid item sm={6}>
+              <StickyHeadTable />
+
+            </Grid>
+          </Grid>
         </Box>
       </Main>
     </Box>

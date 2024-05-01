@@ -33,6 +33,7 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
           boxSizing: "border-box",
           color: darkMode ? theme.darkmodeClr : theme.lightmodeClr,
           bgcolor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
+          borderRight:"none"
         },
       }}
       variant={smallScreen ? "temporary" : "persistent"}

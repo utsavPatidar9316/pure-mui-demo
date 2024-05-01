@@ -28,40 +28,40 @@ export const cardData = [
 export const table1 = [
   {
     name: "Design a FreshCart Home page",
-    Deadline: "Today",
-    Status: "Approved",
+    deadline: "Today",
+    status: "Approved",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
   {
     name: "Dash UI Dark Version Design",
-    Deadline: "Yesterday",
-    Status: "Pending",
+    deadline: "Yesterday",
+    status: "Pending",
   },
-  // Add more data as needed
+
 ];
 export const table2 = [
   {

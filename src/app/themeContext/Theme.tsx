@@ -46,7 +46,7 @@ const Muitheme = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       primary: "#1e293b", // Black text color for light mode
       // secondary:"#1e293b"
     },
-    divider: "#ffffff",
+    divider: "#1e293b",
     mode: "light",
   };
 
@@ -63,7 +63,7 @@ const Muitheme = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       primary: "#ffffff",
       // secondary:"#ffffff" // White text color for dark mode
     },
-    divider: "#1e293b",
+    divider: "#ffffff",
     mode: "dark",
   };
 
