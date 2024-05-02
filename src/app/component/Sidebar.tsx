@@ -43,6 +43,9 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
       variant={smallScreen ? "temporary" : "persistent"}
       anchor="left"
       open={open}
+      ModalProps={{
+        keepMounted: true, // Better open performance on mobile.
+      }}
     >
       <Box
         sx={{
