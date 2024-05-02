@@ -7,8 +7,8 @@ import Cards from "./component/Cards";
 import Table from "./component/Table";
 import Table1 from "./component/Table1";
 import Table2 from "./component/Table2";
-import { useDarkMode } from "./context/Darkmode";
-import { useTheme } from "@mui/material/styles";
+import { useDarkMode as darkModeContext } from "./context/Darkmode";
+import { useTheme as themeContext } from "@mui/material/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { DrawerHeader, Main } from "./component/styledComponent";
@@ -16,8 +16,8 @@ import { useState } from "react";
 
 const page = () => {
   const [open, setOpen] = useState(false);
-  const { darkMode } = useDarkMode();
-  const theme = useTheme();
+  const { darkMode } = darkModeContext();
+  const theme = themeContext();
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
