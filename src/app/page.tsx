@@ -14,7 +14,7 @@ import Grid from "@mui/material/Grid";
 import { DrawerHeader, Main } from "./component/styledComponent";
 import { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const { darkMode } = darkModeContext();
   const theme = themeContext();
   const handleDrawerOpen = () => {
@@ -88,4 +88,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
