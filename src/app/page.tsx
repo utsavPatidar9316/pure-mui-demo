@@ -15,12 +15,12 @@ import { DrawerHeader, Main } from "./component/styledComponent";
 import { useState } from "react";
 
 const page = () => {
-  const [open, setOpen] = useState(false);
   const { darkMode } = darkModeContext();
   const theme = themeContext();
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
+  const [open, setOpen] = React.useState(false);
 
   return (
     <Box
