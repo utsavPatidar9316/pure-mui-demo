@@ -1,6 +1,5 @@
 import * as React from "react";
 import { table1 } from "../utils/data";
-import { useTheme } from "@mui/material/styles";
 import {
   Paper,
   Table,
@@ -13,11 +12,12 @@ import {
   Typography,
   Checkbox,
 } from "@mui/material";
-import { useSmallScreen } from "../context/smallScreeen";
+import { useTheme as themeContext } from "@mui/material/styles";
+import { useSmallScreen as smallScreenContext } from "../context/smallScreeen";
 
 const Table1 = () => {
-  const theme = useTheme();
-  const { smallScreen } = useSmallScreen();
+  const theme = themeContext();
+  const { smallScreen } = smallScreenContext();
 
   return (
     <Paper

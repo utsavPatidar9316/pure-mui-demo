@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Sidebar from "./component/Sidebar";
 import Navbar from "./component/Navbar";
@@ -13,9 +12,10 @@ import { useTheme } from "@mui/material/styles";
 import { Box, Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { DrawerHeader, Main } from "./component/styledComponent";
+import { useState } from "react";
 
 const page = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { darkMode } = useDarkMode();
   const theme = useTheme();
   const handleDrawerOpen = () => {

@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeContext children={children} />
+        <ThemeContext>{children}</ThemeContext>
       </body>
     </html>
   );

@@ -1,11 +1,11 @@
 import * as React from "react";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import { sidebarData } from "../utils/sidebarData";
-import { useDarkMode } from "../context/Darkmode";
 import FirstPageRoundedIcon from "@mui/icons-material/FirstPageRounded";
-import { useSmallScreen } from "../context/smallScreeen";
 import { drawerWidth } from "./styledComponent";
-import { useTheme } from "@mui/material/styles";
+import { useDarkMode as darkModeContext } from "../context/Darkmode";
+import { useTheme as themeContext } from "@mui/material/styles";
+import { useSmallScreen as smallScreenContext } from "../context/smallScreeen";
 import {
   Box,
   List,
@@ -23,9 +23,9 @@ type props = {
 };
 
 const Sidebar = ({ open, handleDrawerOpen }: props) => {
-  const { darkMode } = useDarkMode();
-  const { smallScreen } = useSmallScreen();
-  const theme = useTheme();
+  const { darkMode } = darkModeContext();
+  const { smallScreen } = smallScreenContext();
+  const theme = themeContext();
 
   return (
     <Drawer

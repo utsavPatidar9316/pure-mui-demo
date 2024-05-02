@@ -12,12 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 import { table2 } from "../utils/data";
-import { useTheme } from "@mui/material/styles";
-import { useSmallScreen } from "../context/smallScreeen";
+import { useTheme as themeContext } from "@mui/material/styles";
+import { useSmallScreen as smallScreenContext } from "../context/smallScreeen";
 
 const TeamTable = () => {
-  const theme = useTheme();
-  const { smallScreen } = useSmallScreen();
+  const theme = themeContext();
+  const { smallScreen } = smallScreenContext();
   return (
     <Paper
       sx={{

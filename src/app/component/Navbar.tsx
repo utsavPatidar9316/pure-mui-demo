@@ -6,9 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import Avatar from "@mui/material/Avatar";
-import { useDarkMode } from "../context/Darkmode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useSmallScreen } from "../context/smallScreeen";
 import {
   CustomAppBar,
   Search,
@@ -16,7 +14,9 @@ import {
   StyledBadge,
   StyledInputBase,
 } from "./styledComponent";
-import { useTheme } from "@mui/material/styles";
+import { useDarkMode as darkModeContext } from "../context/Darkmode";
+import { useTheme as themeContext } from "@mui/material/styles";
+import { useSmallScreen as smallScreenContext } from "../context/smallScreeen";
 
 type props = {
   open: boolean;
@@ -24,9 +24,9 @@ type props = {
 };
 
 const Navbar = ({ open, handleDrawerOpen }: props) => {
-  const { darkMode, toggleDarkMode } = useDarkMode();
-  const { smallScreen } = useSmallScreen();
-  const theme = useTheme();
+  const { darkMode, toggleDarkMode } = darkModeContext();
+  const { smallScreen } = smallScreenContext();
+  const theme = themeContext();
 
   return (
     <CustomAppBar

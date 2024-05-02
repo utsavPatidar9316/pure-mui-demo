@@ -1,13 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import { useDarkMode } from "../context/Darkmode";
 import { Box, Typography } from "@mui/material";
 import { cardData } from "../utils/data";
-import { useTheme } from "@mui/material/styles";
+import { useDarkMode as darkModeContext } from "../context/Darkmode";
+import { useTheme as themeContext } from "@mui/material/styles";
 
 const Cards = () => {
-  const { darkMode } = useDarkMode();
-  const theme = useTheme();
+  const { darkMode } = darkModeContext();
+  const theme = themeContext();
 
   const cardStyles = {
     borderRadius: ".5rem",
