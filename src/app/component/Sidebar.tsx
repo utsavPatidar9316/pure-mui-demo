@@ -1,19 +1,21 @@
-"use client";
 import * as React from "react";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import DashboardCustomizeRoundedIcon from "@mui/icons-material/DashboardCustomizeRounded";
 import { sidebarData } from "../utils/sidebarData";
 import { useDarkMode } from "../context/Darkmode";
-import { theme } from "../utils/theme";
 import FirstPageRoundedIcon from "@mui/icons-material/FirstPageRounded";
 import { useSmallScreen } from "../context/smallScreeen";
-
-const drawerWidth = 260;
+import { drawerWidth } from "./styledComponent";
+import { useTheme } from "@mui/material/styles";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
+  IconButton,
+} from "@mui/material";
 
 type props = {
   open: boolean;
@@ -23,6 +25,8 @@ type props = {
 const Sidebar = ({ open, handleDrawerOpen }: props) => {
   const { darkMode } = useDarkMode();
   const { smallScreen } = useSmallScreen();
+  const theme = useTheme();
+
   return (
     <Drawer
       sx={{
@@ -31,22 +35,22 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          color: darkMode ? theme.darkmodeClr : theme.lightmodeClr,
-          bgcolor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
-          borderRight:"none"
+          backgroundColor: theme?.palette?.background?.default,
+          color: theme?.palette?.text?.primary,
+          borderRight: "none",
         },
       }}
       variant={smallScreen ? "temporary" : "persistent"}
       anchor="left"
       open={open}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           padding: "1rem 1.5rem 1.5rem",
           display: "flex",
           marginRight: 0,
           filter: darkMode ? "brightness(0) invert(1)" : "",
-          gap: 80,
+          gap: 3,
         }}
       >
         <img
@@ -54,13 +58,17 @@ const Sidebar = ({ open, handleDrawerOpen }: props) => {
           alt="Example SVG"
           style={{ height: "1.875rem" }}
         />
-        <span className="cursor-pointer">
-          {smallScreen && <FirstPageRoundedIcon onClick={handleDrawerOpen} />}
-        </span>
-      </div>
+        {smallScreen && (
+          <Box sx={{ cursor: "pointer", textAlign: "center" }}>
+            <IconButton onClick={handleDrawerOpen}>
+              <FirstPageRoundedIcon />
+            </IconButton>
+          </Box>
+        )}
+      </Box>
       <List>
         {sidebarData.map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton>
               <ListItemIcon
                 sx={{

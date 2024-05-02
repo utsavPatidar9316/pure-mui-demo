@@ -61,53 +61,53 @@ export const table1 = [
     deadline: "Yesterday",
     status: "Pending",
   },
-
 ];
+
 export const table2 = [
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/1",
     name: "John Doe",
     email: "john@example.com",
     role: "Frontend Developer",
     lastActivity: "3 May, 2023",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/2",
     name: "Jane Smith",
     email: "jane@example.com",
     role: "Backend Developer",
     lastActivity: "5 April, 2023",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/3",
     name: "Alice Johnson",
     email: "alice@example.com",
     role: "UI/UX Designer",
     lastActivity: "12 March, 2023",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/4",
     name: "Bob Williams",
     email: "bob@example.com",
     role: "Full Stack Developer",
     lastActivity: "20 February, 2023",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/5",
     name: "Emily Davis",
     email: "emily@example.com",
     role: "Software Engineer",
     lastActivity: "8 January, 2023",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/6",
     name: "Michael Brown",
     email: "michael@example.com",
     role: "Data Scientist",
     lastActivity: "15 December, 2022",
   },
   {
-    img: "https://via.placeholder.com/150",
+    img: "https://via.placeholder.com/7",
     name: "Sophia Wilson",
     email: "sophia@example.com",
     role: "Project Manager",

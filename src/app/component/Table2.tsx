@@ -1,72 +1,67 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Avatar } from '@mui/material';
-import { useDarkMode } from '../context/Darkmode';
-import { theme } from "../utils/theme";
-import { table2 } from '../utils/data';
-import MoreVertSharpIcon from "@mui/icons-material/MoreVertSharp";
-const TableActivity = ({ data }: any) => {
-    const { darkMode } = useDarkMode();
-    return (
-        <div className="col-span-1 md:col-span-5 ">
+import * as React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Avatar,
+  Box,
+  Typography,
+} from "@mui/material";
+import { table2 } from "../utils/data";
+import { useTheme } from "@mui/material/styles";
+import { useSmallScreen } from "../context/smallScreeen";
 
-            <div
-                className="shadow-md rounded-md"
-                style={{
-                    backgroundColor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
-                    color: darkMode ? theme.cardDarkmodeColor : theme.lightmodeClr,
-                }}
-            >
-
-                <div className="px-4 py-3 border-b border-gray-300">
-                    <h4 className="font-semibold">Teams</h4>
-                </div>
-
-
-
-                <div className="max-h-96 h-500 overflow-y-scroll  ">
-                    <table className="w-full h-full table-auto text-left">
-                        <thead className="bg-gray-200">
-                            <tr className={`${darkMode ? "bg-gray-600" : "bg-gray-100"
-                                } font-medium`}>
-                                <th className="px-4 py-2 border-b  border-gray-300">Name</th>
-                                <th className="px-4 py-2 border-b  border-gray-300">Role</th>
-                                <th className="px-4 py-2 border-b  border-gray-300">Activity</th>
-                                <th className="px-4 py-2 border-b  border-gray-300"></th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            {table2.map((x: any, key: any) => {
-                                return (
-                                    <tr key={key} >
-                                        <td>
-                                            <div className="flex items-center mx-5">
-                                                <div>
-                                                    <Avatar src={x.img} style={{ marginRight: '5px' }} />
-                                                </div>
-                                                <div className="ms-2 ">
-                                                    <h5 >{x.name}</h5>
-                                                    <p >{x.email}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 py-3">{x.role}</td>
-                                        <td className="px-4 py-3">{x.lastActivity}</td>
-                                        <td className="px-4 py-3"><MoreVertSharpIcon /></td>
-
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-
-
-
-            </div>
-        </div>
-
-
-    );
+const TeamTable = () => {
+  const theme = useTheme();
+  const { smallScreen } = useSmallScreen();
+  return (
+    <Paper
+      sx={{
+        borderRadius: ".5rem",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        background: theme.palette.background.default,
+      }}
+    >
+      <Box sx={{ px: 2, py: 2, borderBottomWidth: "1px" }}>
+        <Typography variant="h6" sx={{ fontWeight: "400" }}>
+          Teams
+        </Typography>
+      </Box>
+      <TableContainer
+        style={{ maxWidth: "100%", overflowX: "auto", maxHeight: 440 }}
+      >
+        <Table sx={{ width: smallScreen ? "max-content" : "100%" }}>
+          <TableHead style={{ background: theme.palette.background.tHeader }}>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Last Activity</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {table2.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Avatar src={`https://i.pravatar.cc/300?img=${index}`} />
+                    <Box>
+                      <Typography>{item.name}</Typography>
+                      <Typography>{item.email}</Typography>
+                    </Box>
+                  </Box>
+                </TableCell>
+                <TableCell>{item.role}</TableCell>
+                <TableCell>{item.lastActivity}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+  );
 };
-
-export default TableActivity;
+export default TeamTable;

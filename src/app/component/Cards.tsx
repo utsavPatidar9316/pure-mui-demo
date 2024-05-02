@@ -1,75 +1,50 @@
 import React from "react";
 import Image from "next/image";
 import { useDarkMode } from "../context/Darkmode";
-import { theme } from "../utils/theme";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { cardData } from "../utils/data";
+import { useTheme } from "@mui/material/styles";
+
 const Cards = () => {
   const { darkMode } = useDarkMode();
-  const data = [
-    {
-      title: "Projects",
-      number: "18",
-      completed: "2",
-      src: "projectIcon.svg",
-    },
-    {
-      title: "Active Task",
-      number: "132",
-      completed: "28",
-      src: "activeTask.svg",
-    },
-    {
-      title: "Teams",
-      number: "12",
-      completed: "1",
-      src: "termsIcon.svg",
-    },
-    {
-      title: "Productivity",
-      number: "76%",
-      completed: "5%",
-      src: "productivityIcon.svg",
-    },
-  ];
+  const theme = useTheme();
 
+  const cardStyles = {
+    borderRadius: ".5rem",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    transition: "transform 0.3s ease-in-out",
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary,
+    p: "24px",
+  };
+
+  const cardImageStyle = {
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "0.5rem",
+    backgroundColor: "rgba(98,75,255,.3)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    filter: darkMode ? "brightness(0) invert(1)" : "",
+  };
   return (
     <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
-      {data.map((x, key) => (
+      {cardData.map(({ title, src, number, completed }, index) => (
         <Box
-          key={key}
+          key={index}
           sx={{
-            // width: "25%", // Default width
-            "@media (max-width:600px)": {
-              // Apply full width on small screens and below
-              width: "100%",
-            },
-            "@media (min-width:601px) and (max-width:960px)": {
-              // Apply half width on medium screens
-              width: "50%",
-            },
-            "@media (min-width:961px) and (max-width:1280px)": {
-              // Apply half width on large screens
-              width: "100%",
-            },
-            "@media (min-width:1281px)": {
-              // Revert to default width on extra-large screens
-              width: "25%",
-            },
+            width: ["100%", "50%", "100%", "25%"], // Responsive widths
             p: "1rem",
           }}
         >
           <Box
             sx={{
-              borderRadius: ".5rem",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.3s ease-in-out",
+              ...cardStyles,
               "&:hover": {
                 transform: "translateY(-5px)",
                 boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
               },
-              backgroundColor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
-              color: darkMode ? theme.cardDarkmodeColor : theme.lightmodeClr,
-              p: "24px",
             }}
           >
             <Box
@@ -81,21 +56,14 @@ const Cards = () => {
               }}
             >
               <Typography variant="h6" sx={{ mb: 0, fontWeight: "bold" }}>
-                {x.title}
+                {title}
               </Typography>
               <Box
                 sx={{
-                  width: "2.5rem",
-                  height: "2.5rem",
-                  borderRadius: "0.5rem",
-                  backgroundColor: "rgba(98,75,255,.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  filter: darkMode ? "brightness(0) invert(1)" : "",
+                  ...cardImageStyle,
                 }}
               >
-                <Image src={x.src} alt={x.title} width={24} height={24} />
+                <Image src={src} alt={title} width={24} height={24} />
               </Box>
             </Box>
             <Box sx={{ lineHeight: 1.25 }}>
@@ -103,11 +71,11 @@ const Cards = () => {
                 variant="h5"
                 sx={{ mb: 1, fontWeight: "700", fontSize: "1.875rem" }}
               >
-                {x.number}
+                {number}
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 <span style={{ color: darkMode ? "#fff" : "#000" }}>
-                  {x.completed}
+                  {completed}
                 </span>{" "}
                 completed
               </Typography>

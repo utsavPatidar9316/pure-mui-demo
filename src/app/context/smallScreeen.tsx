@@ -24,7 +24,12 @@ interface SmallScreenProviderProps {
 export const SmallScreenProvider: React.FC<SmallScreenProviderProps> = ({
   children,
 }) => {
-  const [smallScreen, setSmallScreen] = useState<boolean>(false);
+  const [smallScreen, setSmallScreen] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth <= 600;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const handleResize = () => {

@@ -1,14 +1,9 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import MoreVertSharpIcon from "@mui/icons-material/MoreVertSharp";
 import Image from "next/image";
-import { useDarkMode } from "../context/Darkmode";
-import { theme } from "../utils/theme";
 import { data3 } from "../utils/data";
-import { Box, Grid } from "@mui/material";
-import { createStyles, makeStyles } from "@mui/styles";
-import { Theme } from "@mui/material/styles";
+import { Box, Grid, LinearProgress, Divider } from "@mui/material";
 import {
   Paper,
   Table,
@@ -21,32 +16,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useSmallScreen } from "../context/smallScreeen";
 
 const TableContent = () => {
-  const { darkMode } = useDarkMode();
+  const { smallScreen } = useSmallScreen();
   const theme = useTheme();
-  type ProjectData = {
-    p_name: string;
-    priority: string;
-    progress: string;
-    chipColor:
-      | "primary"
-      | "secondary"
-      | "error"
-      | "warning"
-      | "info"
-      | "success";
-  };
-
-  // Define the ChipProps type
-  type ChipProps = {
-    data: ProjectData;
-  };
 
   return (
-    <Box sx={{ padding: "1rem" }}>
+    <Box sx={{ padding: "1rem", width: "100%" }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={8}>
           <Paper
             sx={{
               borderRadius: ".5rem",
@@ -59,15 +38,17 @@ const TableContent = () => {
                 Active Projects
               </Typography>
             </Box>
-            <TableContainer className="overflow-x-auto">
-              <Table className="w-full table-auto text-left">
-                <TableHead>
+            <TableContainer style={{ maxWidth: "100%", overflowX: "auto" }}>
+              <Table sx={{ width: smallScreen ? "max-content" : "100%" }}>
+                <TableHead
+                  style={{ background: theme.palette.background.tHeader }}
+                >
                   <TableRow>
-                    <TableCell className="px-4 py-2">Project name</TableCell>
-                    <TableCell className="px-4 py-2">Hours</TableCell>
-                    <TableCell className="px-4 py-2">Priority</TableCell>
-                    <TableCell className="px-4 py-2">Members</TableCell>
-                    <TableCell className="px-4 py-2">Progress</TableCell>
+                    <TableCell>Project name</TableCell>
+                    <TableCell>Hours</TableCell>
+                    <TableCell>Priority</TableCell>
+                    <TableCell>Members</TableCell>
+                    <TableCell>Progress</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -91,24 +72,21 @@ const TableContent = () => {
                     }
                     return (
                       <TableRow key={key}>
-                        <TableCell
-                          className="px-4 py-3"
-                          sx={{ display: "flex", gap: 2 }}
-                        >
+                        <TableCell sx={{ display: "flex", gap: 2 }}>
                           <Avatar
                             src={x.src}
                             alt={x.p_name}
-                            sx={{ width: 30, height: 30 }}
+                            sx={{ width: 35, height: 35 }}
                           />
-                          <div style={{ paddingTop: "3px" }}>{x.p_name}</div>
+                          <div style={{ paddingTop: "5px" }}>{x.p_name}</div>
                         </TableCell>
-                        <TableCell className="px-4 py-3">{x.hrs}</TableCell>
-                        <TableCell className="px-4 py-3">
+                        <TableCell>{x.hrs}</TableCell>
+                        <TableCell>
                           <span className={`priority-text ${priorityClass}`}>
                             {x.priority}
                           </span>
                         </TableCell>
-                        <TableCell className="px-4 py-3">
+                        <TableCell>
                           <AvatarGroup sx={{ float: "left" }}>
                             {[0, 1, 2, 3].map((number, index) => (
                               <Avatar
@@ -139,20 +117,27 @@ const TableContent = () => {
                             </Avatar>
                           </AvatarGroup>
                         </TableCell>
-                        <TableCell className="px-4 py-3 text-dark">
-                          <div className="flex w-24">
-                            <span>{x.progress}</span>
-                            <div className="m-1.5 w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-300">
-                              <div
-                                className={`h-1.5 rounded-full ${
-                                  x.progress === "100%"
-                                    ? "bg-green-700"
-                                    : "bg-blue-600"
-                                }`}
-                                style={{ width: `${x.progress}` }}
-                              ></div>
-                            </div>
-                          </div>
+                        <TableCell>
+                          <Box display="flex" width="6rem">
+                            <Typography>{x.progress}</Typography>
+                            <Box width="100%" marginTop="6px" marginLeft="6px">
+                              <LinearProgress
+                                variant="determinate"
+                                value={parseFloat(x.progress)} // assuming x.progress is a string representing a percentage
+                                sx={{
+                                  borderRadius: "9999px",
+                                  height: "0.375rem",
+                                  "& .MuiLinearProgress-bar": {
+                                    borderRadius: "9999px",
+                                    backgroundColor:
+                                      x.progress === "100%"
+                                        ? "#4AFA9A"
+                                        : "#4299E1",
+                                  },
+                                }}
+                              />
+                            </Box>
+                          </Box>
                         </TableCell>
                       </TableRow>
                     );
@@ -161,105 +146,105 @@ const TableContent = () => {
               </Table>
             </TableContainer>
             {/* Card footer */}
-            <div className="px-3 py-2 border-t text-center">
-              <Button className="bg-blue-600 hover:bg-blue-800 text-grey font-semibold py-2 px-4 border border-gray-400 rounded shadow rounded-md">
-                View All Projects
+            <Box
+              sx={{
+                paddingX: 3,
+                paddingY: 2,
+                borderTop: "1px solid #e2e8f0", // Simulating Tailwind's border-t
+                textAlign: "center",
+              }}
+            >
+              <Button variant="contained" color="primary">
+                <Typography variant="button">View All Projects</Typography>
               </Button>
-            </div>
+            </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
-          <div
-            className="col-span-1 md:col-span-3 mb-5 shadow-md rounded-md"
-            style={{
-              backgroundColor: theme.palette.background.default,
-              color: theme.palette.text.primary,
+        <Grid item xs={12} md={4}>
+          <Paper
+            sx={{
+              borderRadius: ".5rem",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              background: theme.palette.background.default,
             }}
           >
-            <div className="px-4 py-3 border-b flex justify-between items-center">
-              <h4 className="text-lg font-semibold">Tasks Performance</h4>
-              {/* dropdown  */}
-              <div className="relative">
-                <button
-                  className="btn btn-ghost btn-sm rounded-full"
-                  id="dropdownTask"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <MoreVertSharpIcon />
-                </button>
-              </div>
-            </div>
-            <div className="mt-3">
+            <Box sx={{ px: 2, py: 2, borderBottomWidth: "1px" }}>
+              <Typography variant="h6" sx={{ fontWeight: "400" }}>
+                Tasks Performance
+              </Typography>
+            </Box>
+            <Divider />
+            <Box mt={5} mb={5} textAlign={"center"}>
               <Image
                 src="chart.svg"
                 alt="Example SVG"
-                width={500}
-                height={500}
+                width={325}
+                height={325}
               />
-            </div>
-            <div className="px-3 py-12">
-              <div className="flex items-center justify-around md:flex-wrap">
-                <div className="text-center flex flex-col items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-check-circle icon-sm text-success"
-                  >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
-                  <h1 className="text-2xl mb-0 ">76%</h1>
-                  <p>Completed</p>
-                </div>
-                <div className="text-center flex flex-col items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-trending-up icon-sm text-warning"
-                  >
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                    <polyline points="17 6 23 6 23 12"></polyline>
-                  </svg>
-                  <h1 className="text-2xl mb-0 ">32%</h1>
-                  <p>In-Progress</p>
-                </div>
-                <div className="text-center flex flex-col items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-trending-up icon-sm text-warning"
-                  >
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                    <polyline points="17 6 23 6 23 12"></polyline>
-                  </svg>
-                  <h1 className="text-2xl mb-0 ">13%</h1>
-                  <p>Behind</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            </Box>
+            <Box display="flex" justifyContent="center">
+              <Box flex={1} textAlign="center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <Typography variant="h4" component="h1" gutterBottom>
+                  76%
+                </Typography>
+                <Typography variant="body1">Completed</Typography>
+              </Box>
+              <Box flex={1} textAlign="center" mb={1.5}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                <Typography variant="h4" component="h1" gutterBottom>
+                  32%
+                </Typography>
+                <Typography variant="body1">In-Progress</Typography>
+              </Box>
+              <Box flex={1} textAlign="center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                  <polyline points="17 18 23 18 23 12"></polyline>
+                </svg>
+                <Typography variant="h4" component="h1" gutterBottom>
+                  13%
+                </Typography>
+                <Typography variant="body1">Behind</Typography>
+              </Box>
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
     </Box>

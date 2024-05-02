@@ -11,6 +11,7 @@ export interface CustomPaletteOptions {
     default: string;
     themeBG: string;
     bodyBG: string;
+    tHeader: string;
   };
   text: PaletteOptions["text"];
   divider: string;
@@ -22,6 +23,7 @@ declare module "@mui/material/styles" {
   interface TypeBackground {
     bodyBG: string;
     themeBG: string;
+    tHeader: string;
   }
 }
 
@@ -41,6 +43,7 @@ const Muitheme = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       default: "#ffffff", // White background for light mode
       themeBG: "#f1f5f9",
       bodyBG: "#f1f5f9",
+      tHeader: "#f1f5f9",
     },
     text: {
       primary: "#1e293b", // Black text color for light mode
@@ -58,6 +61,7 @@ const Muitheme = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       default: "#1e293b", // Dark background for dark mode
       themeBG: "#1e293b",
       bodyBG: "#0f172a",
+      tHeader: "#334155",
     },
     text: {
       primary: "#ffffff",

@@ -8,55 +8,19 @@ import Cards from "./component/Cards";
 import Table from "./component/Table";
 import Table1 from "./component/Table1";
 import Table2 from "./component/Table2";
-import StickyHeadTable from './component/TaskTable'
 import { useDarkMode } from "./context/Darkmode";
 import { useTheme } from "@mui/material/styles";
 import { Box, Typography, Button } from "@mui/material";
-import Grid from '@mui/material/Grid';
-import useMediaQuery from '@mui/material/useMediaQuery';
-const drawerWidth = 260;
+import Grid from "@mui/material/Grid";
+import { DrawerHeader, Main } from "./component/styledComponent";
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  }),
-  // Add additional styles for smaller screens (600px or below)
-  [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
-    marginLeft: 0,
-  },
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
-export default function PersistentDrawerLeft() {
+const page = () => {
   const [open, setOpen] = React.useState(false);
   const { darkMode } = useDarkMode();
   const theme = useTheme();
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
-
-  
-
 
   return (
     <Box
@@ -68,7 +32,10 @@ export default function PersistentDrawerLeft() {
       <CssBaseline />
       <Navbar open={open} handleDrawerOpen={handleDrawerOpen} />
       <Sidebar open={open} handleDrawerOpen={handleDrawerOpen} />
-      <Main open={open} sx={{ minHeight: "100vh" }}>
+      <Main
+        open={open}
+        sx={{ minHeight: "100vh", overflowX: "auto", maxWidth: "100%" }}
+      >
         <DrawerHeader />
         <Box
           sx={{
@@ -97,14 +64,6 @@ export default function PersistentDrawerLeft() {
                 boxShadow: "none",
                 textTransform: "none",
                 fontWeight: "normal",
-                "&:hover": {
-                  // Remove hover effect styles
-                  // backgroundColor: "gray",
-                },
-                "&:active": {
-                  // Remove onclick effect styles
-                  // backgroundColor: "inherit",
-                },
                 fontSize: "1rem",
               }}
             >
@@ -114,20 +73,19 @@ export default function PersistentDrawerLeft() {
           <Box sx={{ paddingTop: ".5rem" }}>
             <Cards />
           </Box>
-
-
-          <Grid container spacing={2} padding={2}>
-            <Grid item sm={6}>
-              <StickyHeadTable />
-
+          <Table />
+          <Grid container spacing={3} padding={"1rem"}>
+            <Grid item xs={12} md={6}>
+              <Table1 />
             </Grid>
-            <Grid item sm={6}>
-              <StickyHeadTable />
-
+            <Grid item xs={12} md={6}>
+              <Table2 />
             </Grid>
           </Grid>
         </Box>
       </Main>
     </Box>
   );
-}
+};
+
+export default page;

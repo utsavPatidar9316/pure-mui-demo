@@ -1,72 +1,64 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox } from '@mui/material';
-import { useDarkMode } from '../context/Darkmode';
-import { theme } from "../utils/theme";
-import { table1 } from '../utils/data';
-const TableComponent = () => {
-  const { darkMode } = useDarkMode();
+import * as React from "react";
+import { table1 } from "../utils/data";
+import { useTheme } from "@mui/material/styles";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
+  Typography,
+  Checkbox,
+} from "@mui/material";
+import { useSmallScreen } from "../context/smallScreeen";
+
+const Table1 = () => {
+  const theme = useTheme();
+  const { smallScreen } = useSmallScreen();
 
   return (
-    <div className="col-span-1 md:col-span-5 ">
-      {/* card  */}
-      <div
-        className="shadow-md rounded-md"
-        style={{
-          backgroundColor: darkMode ? theme.darkmodeBg : theme.lightmodeBg,
-          color: darkMode ? theme.cardDarkmodeColor : theme.lightmodeClr,
-        }}
+    <Paper
+      sx={{
+        borderRadius: ".5rem",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        background: theme.palette.background.default,
+      }}
+    >
+      <Box sx={{ px: 2, py: 2, borderBottomWidth: "1px" }}>
+        <Typography variant="h6" sx={{ fontWeight: "400" }}>
+          My Task
+        </Typography>
+      </Box>
+      <TableContainer
+        style={{ maxWidth: "100%", overflowX: "auto", maxHeight: 440 }}
       >
-
-        {/* card header  */}
-        <div className="px-4 py-3 border-b border-gray-300">
-          <h4 className="font-semibold">My Task</h4>
-        </div>
-
-
-        <div className="max-h-96 h-500 overflow-x-auto">
-          <table className="w-full table-auto text-left">
-            <thead className="bg-gray-200">
-              <tr className={`${darkMode ? "bg-gray-600" : "bg-gray-100"
-                } font-medium`}>
-                <th className="px-4 py-2 border-b  border-gray-300">Name</th>
-                <th className="px-4 py-2 border-b  border-gray-300">Deadline</th>
-                <th className="px-4 py-2 border-b  border-gray-300">Status</th>
-
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {table1.map((x: any, key: any) => {
-                let priorityClass = "";
-                switch (x.Status) {
-                  case "Approved":
-                    priorityClass = "priority-track";
-                    break;
-                  case "Pending":
-                    priorityClass = "priority-high";
-
-                  default:
-                    break;
-                }
-                return (
-                  <tr key={key} >
-                    <td className="px-4 py-3 flex align-middle gap-2"> <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />{x.name}</td>
-                    <td className="px-4 py-3">{x.Deadline}</td>
-                    <td className="px-4 py-3">
-                      <span className={`priority-text ${priorityClass}`}>
-                        {x.Status}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
+        <Table sx={{ width: smallScreen ? "max-content" : "100%" }}>
+          <TableHead style={{ background: theme.palette.background.tHeader }}>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Deadline</TableCell>
+              <TableCell>Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {table1.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <Checkbox />
+                </TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.deadline}</TableCell>
+                <TableCell>{row.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
-
-
-export default TableComponent;
+export default Table1;
